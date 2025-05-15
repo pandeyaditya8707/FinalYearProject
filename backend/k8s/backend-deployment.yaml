@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend-container
+        image: asia-docker.pkg.dev/algosphere-445916/algosphere/backend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            cpu: "1"  # Increased from 250m to 1 CPU core
+            memory: "2Gi"  # Increased from 512Mi to 2Gi
+          limits:
+            cpu: "2"  # Increased from 500m to 2 CPU cores
+            memory: "4Gi"  # Increased from 1Gi to 4Gi
+        env:
+        - name: CUDA_VISIBLE_DEVICES  # Disables GPU for TensorFlow
+          value: "-1"
+        - name: TF_ENABLE_ONEDNN_OPTS  # Ensures deterministic results
+          value: "0"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 15
+          periodSeconds: 600
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 600
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: LoadBalancer
