@@ -1,8 +1,17 @@
 ├── frontend/             # Contains the React application (frontend of the project)
+
+
 ├── backend/              # Contains the Django backend and API logic
+
+
 ├── ml/                   # Contains vehicle counting and other machine learning components
+
+
 ├── videos/               # Contains test video files used for vehicle detection
+
+
 ├── detected_vehicle/     # Stores images of detected vehicles captured from video streams
+
 
 
 
