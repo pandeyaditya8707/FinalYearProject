@@ -33,19 +33,8 @@ The system consists of two primary components:
 
 ---
 
-## 📁 Project Structure
 
 
-## Features
-✅ Timed Quizzes – Each question has a 30-second countdown.
-
-✅ State Management with Recoil – Efficiently manages quiz state.
-
-✅ Smooth Animations – Powered by Framer Motion for a visually appealing experience.
-
-✅ Scoreboard – Displays the final score after completing the quiz.
-
-✅ IndexedDB Support – Ensures quiz data persistence.
 
 ✅ Responsive UI – Optimized for both desktop and mobile users.
 ---
